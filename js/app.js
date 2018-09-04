@@ -1,18 +1,9 @@
-const enemiesRows = [60, 140, 225];
-const allowedKeys = {
-    37: 'left',
-    38: 'up',
-    39: 'right',
-    40: 'down'
-};
-let allEnemies = new Array();
-
 class Enemy {
-    constructor () {
+    constructor(y) {
         this.sprite = 'images/enemy-bug.png';
         this.speed = Math.floor(Math.random() * 300) + 50;
-        this.x = 0;
-        this.y = enemiesRows[Math.floor(Math.random()*enemiesRows.length)];
+        this.x = -170;
+        this.y = y;
     }
 
     render() {
@@ -21,11 +12,14 @@ class Enemy {
 
     update(dt) {
         this.x = this.x + this.speed * dt;
+        if (player.x + 70 > this.x && player.x < this.x + 100 && player.y + 85 > this.y && player.y < this.y + 70) {
+            player.crashed();
+        }
     }
 }
 
 class Player {
-    constructor () {
+    constructor() {
         this.x = 200;
         this.y = 390;
         this.sprite = 'images/char-boy.png';
@@ -36,10 +30,15 @@ class Player {
     }
 
     update() {
+        if (this.y == -35) {
+            $message.style.display = "block";
+            clearInterval(teste);
+        }
     }
 
     crashed() {
-
+        this.x = 200;
+        this.y = 390;
     }
 
     handleInput(key) {
@@ -72,13 +71,36 @@ class Player {
     }
 }
 
-let enemy = new Enemy();
-allEnemies.push(enemy);
-let player = new Player();
+// Game variables;
+let player = new Player(),
+    allEnemies = new Array(),
+    enemiesRows = [60, 140, 225],
+    allowedKeys = {
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down'
+    };
+let teste;
+let $message = document.getElementById("message");
 
+class Game {
+    constructor() {
+        document.addEventListener('keyup', function (e) {
+            player.handleInput(allowedKeys[e.keyCode]);
+        });
+        this.addEnemies();
+        teste = setInterval(
+            this.addEnemies.bind(this),
+            2500
+        )
+    }
+    addEnemies() {
+        for (let index = 0; index < 3; index++) {
+            let y = enemiesRows[index];
+            allEnemies.push(new Enemy(y));
+        }
+    }
+}
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-    player.handleInput(allowedKeys[e.keyCode]);
-});
+new Game();
