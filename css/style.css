@@ -3,16 +3,112 @@
     src: url('../fonts/prstart.ttf');
 }
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 html {
     height: 100%;
     min-height: 100%;
 }
 
 body {
-    background-image: url('../images/bg.jpg');
+    background-color: #00b6d3;
+    /* background-image: url('../images/bg.jpg');
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     font-family: 'prstart';
+    padding-top: 50px;
     text-align: center;
+}
+
+.arcade {
+    background-color: #e9604d;
+    border: solid 10px #fccb79;
+    box-shadow: 0px 15px 0px 10px #574b48;
+    border-top: none;
+    margin: 0 auto;
+    width: 700px;
+}
+
+.arcade .header {
+    border: solid 10px #574b48;
+    box-shadow: inset 0px 0px 10px 0px #f17260, 0px 20px 20px 0px #a03f31;
+    color: #fff;
+    font-size: 3rem;
+    height: 200px;
+    padding-top: 35px;
+    position: relative;
+}
+
+.arcade .header .border {
+    background-color: #fccb79;
+    border: solid 10px #574b48;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 10px 0px #9c857f;
+    height: 210px;
+    position: absolute;
+    top: -15px;
+    width: 40px;
+}
+
+.arcade .header .border-left {
+    left: -45px;
+}
+
+.arcade .header .border-right {
+    right: -45px;
+}
+
+.arcade .title {
+    background-color: #574b48;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 2rem 3rem;
+}
+
+#screen {
+    background: repeating-linear-gradient(to bottom, #0f0a1e, #0f0a1e 2px, #140e29 2px, #140e29 4px);
+    border: solid 15px #574b48;
+    border-radius: 10px;
+    height: 564px;
+    margin: 30px auto;
+    position: relative;
+    width: 535px;
+}
+
+#screen .text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 90px;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  font-size: 2rem;
+  line-height: 40px;
+  letter-spacing: 5px;
+  text-shadow: -2px 0 0 #fdff2a,
+    -4px 0 0 #df4a42,
+    2px 0 0 #91fcfe,
+    4px 0 0 #4405fc;
+  animation: blink 1s steps(4, start) infinite;
+}
+
+ @keyframes blink {
+   to {
+     visibility: hidden
+   }
+ }
+
+canvas {
+    left: 0;
+    position: absolute;
+    top: -50px
 }
