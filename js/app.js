@@ -90,12 +90,13 @@ class Game {
         }
     }
     finish() {
-        message.style.display = 'block';
+        screenText.innerHTML = "You win!!!";
+        screenText.style.display = 'block';
         allEnemies = new Array();
     }
 }
 
-let message = document.getElementById('message');
+let screenText = document.getElementById('screen-text');
 let allEnemies = new Array(),
 enemiesRows = [60, 140, 225],
 allowedKeys = {

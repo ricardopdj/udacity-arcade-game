@@ -14,25 +14,28 @@
  */
 
 var Engine = (function(global) {
+
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
      */
     var doc = global.document,
         win = global.window,
+        screen = doc.getElementById('screen'),
+        screenText = document.getElementById('screen-text'),
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
 
     canvas.width = 505;
     canvas.height = 606;
-    doc.getElementById('screen').appendChild(canvas);
-    // doc.body.appendChild(canvas);
+    screen.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
     function main() {
+        screenText.style.display = 'none';
         /* Get our time delta information which is required if your game
          * requires smooth animation. Because everyone's computer processes
          * instructions at different speeds we need a constant value that
@@ -66,6 +69,7 @@ var Engine = (function(global) {
     function init() {
         reset();
         lastTime = Date.now();
+        start();
         // main();
     }
 
@@ -155,6 +159,14 @@ var Engine = (function(global) {
         });
 
         player.render();
+    }
+
+    function start() {
+        document.addEventListener('keyup', function (e) {
+            if (e.keyCode == 13) {
+                main();
+            }
+        });
     }
 
     /* This function does nothing but it could have been a good place to
